@@ -384,6 +384,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         }
         ball.follow(landing_zone, swingpower)
         ball.fx = 20
+        clubstate = "endshot"
     }
 })
 function callFollowandball () {
@@ -640,6 +641,29 @@ function callbackSwing () {
     false
     )
 }
+function resetGolfer () {
+    game.showLongText("Last shot info", DialogLayout.Bottom)
+    clubhead.setPosition(116, 89)
+    golfer.setImage(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . 1 a . . . . . . . . . 
+        . . . . . . b . . . . . . . . . 
+        . . . . . . b . . . . . . . . . 
+        . . . . . . 2 . . . . . . . . . 
+        . . . . . 5 . 5 . . . . . . . . 
+        . . . . 5 5 5 5 5 . . . . . . . 
+        . . . . 5 e e e 5 . . . . . . . 
+        . . . . 5 b e e 5 . . . . . . . 
+        . . . . . e e e . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `)
+    clubstate = "rest"
+}
 let landing_zone: Sprite = null
 let adjustedaccuracy = 0
 let accuracy = 0
@@ -774,8 +798,8 @@ golfer.setPosition(132, 27)
 clubstate = "rest"
 game.onUpdate(function () {
     caddie.say(clubstate)
-    if (clubstate == "shot") {
-    	
+    if (clubstate == "endshot") {
+        resetGolfer()
     } else if (clubstate == "airswing") {
     	
     } else {
